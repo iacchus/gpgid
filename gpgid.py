@@ -41,7 +41,7 @@ class GPGIdentity:
 
 
     def load(self):
-        with zipfile.ZipFile(name=f"{FILE_BASENAME}.{FILE_FORMAT}",
+        with zipfile.ZipFile(file=f"{FILE_BASENAME}.{FILE_FORMAT}",
                              mode="r") as identity_file:  # pyright: ignore
 
             identity_file.extractall(path=self.gnupghome_ephemeral.name)
