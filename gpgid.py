@@ -15,10 +15,12 @@ class GPGIdentity:
     def __init__(self):
         self.gnupghome_ephemeral = tempfile.TemporaryDirectory()
 
-        self.gpg = gnupg.GPG(gnupghome=self.gnupghome_ephemeral.name)
-        self.gpg.encoding = "utf-8"
+        #  self.gpg = gnupg.GPG(gnupghome=self.gnupghome_ephemeral.name)
+        #  self.gpg.encoding = "utf-8"
 
     def generate(self):
+        self.start_gpg()
+
         params = {
                 "key_type": "RSA",
                 "key_length": 2048,
@@ -43,3 +45,10 @@ class GPGIdentity:
                              mode="r") as identity_file:  # pyright: ignore
 
             identity_file.extractall(path=self.gnupghome_ephemeral.name)
+
+        self.start_gpg()
+
+    def start_gpg(self):
+        self.gpg = gnupg.GPG(gnupghome=self.gnupghome_ephemeral.name)
+        self.gpg.encoding = "utf-8"
+
